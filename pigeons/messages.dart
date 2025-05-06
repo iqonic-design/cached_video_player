@@ -2,7 +2,7 @@
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
-import 'package:pigeon/pigeon_lib.dart';
+import 'package:pigeon/pigeon.dart';
 
 class TextureMessage {
   int? textureId;
@@ -31,7 +31,7 @@ class PositionMessage {
 class CreateMessage {
   String? asset;
   String? uri;
-  String ?packageName;
+  String? packageName;
   String? formatHint;
   Map<String, String>? httpHeaders;
 }
@@ -40,28 +40,38 @@ class MixWithOthersMessage {
   bool? mixWithOthers;
 }
 
-
-@HostApi(dartHostTestHandler: 'TestHostVideoPlayerApi')
+@HostApi()
 abstract class VideoPlayerApi {
+  @async
   void initialize();
 
+  @async
   TextureMessage create(CreateMessage msg);
 
+  @async
   void dispose(TextureMessage msg);
 
+  @async
   void setLooping(LoopingMessage msg);
 
+  @async
   void setVolume(VolumeMessage msg);
 
+  @async
   void setPlaybackSpeed(PlaybackSpeedMessage msg);
 
+  @async
   void play(TextureMessage msg);
 
+  @async
   PositionMessage position(TextureMessage msg);
 
+  @async
   void seekTo(PositionMessage msg);
 
+  @async
   void pause(TextureMessage msg);
 
+  @async
   void setMixWithOthers(MixWithOthersMessage msg);
 }

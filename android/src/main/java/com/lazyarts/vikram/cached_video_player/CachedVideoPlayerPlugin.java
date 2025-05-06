@@ -36,28 +36,12 @@ public class CachedVideoPlayerPlugin implements FlutterPlugin, VideoPlayerApi {
   /** Register this with the v2 embedding for the plugin to respond to lifecycle callbacks. */
   public CachedVideoPlayerPlugin() {}
 
-  @SuppressWarnings("deprecation")
-  private CachedVideoPlayerPlugin(io.flutter.plugin.common.PluginRegistry.Registrar registrar) {
-    this.flutterState =
-        new FlutterState(
-            registrar.context(),
-            registrar.messenger(),
-            registrar::lookupKeyForAsset,
-            registrar::lookupKeyForAsset,
-            registrar.textures());
-    flutterState.startListening(this, registrar.messenger());
-  }
 
-  /** Registers this with the stable v1 embedding. Will not respond to lifecycle events. */
-  @SuppressWarnings("deprecation")
-  public static void registerWith(io.flutter.plugin.common.PluginRegistry.Registrar registrar) {
-    final CachedVideoPlayerPlugin plugin = new CachedVideoPlayerPlugin(registrar);
-    registrar.addViewDestroyListener(
-        view -> {
-          plugin.onDestroy();
-          return false; // We are not interested in assuming ownership of the NativeView.
-        });
-  }
+  /**
+   * Registers this with the stable v1 embedding. Will not respond to lifecycle events.
+   * This method is kept for backwards compatibility with applications that don't use the v2 embedding.
+   */
+
 
   @Override
   public void onAttachedToEngine(FlutterPluginBinding binding) {
